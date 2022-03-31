@@ -4,7 +4,7 @@
 url="http://xxxxxxxx.xxxxxxxx.org/"
 
 # a public proxy server :-)
-proxy="194.5.193.183"
+proxy="xxx.xxx.xxx.xxx"
 
 function word () {
 	count=$1
