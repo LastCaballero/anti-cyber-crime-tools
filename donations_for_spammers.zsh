@@ -7,10 +7,10 @@ url="http://xxxxxxxx.xxxxxxxx.org/"
 proxy="xxx.xxx.xxx.xxx"
 
 function word () {
-	count=$1
-	letter=( {a..z} )
+	local count=$1
+	local letter=( {a..z} )
 	repeat $count { 
-		rand=$( shuf --input-range=1-26 -n 1 )
+		rand=$( shuf --input-range=1-${#letter} -n 1 )
 		back+=$letter[$rand]
 	}
 	print $back
@@ -23,8 +23,11 @@ function rnd_nb () {
 
 emails=( $( repeat 200 { print "$(word $(rnd_nb 3-7)).$(word $(rnd_nb 3-7))@$(word $(rnd_nb 3-7)).$(word $(rnd_nb 2-3))" } ) )
 
-for em ( $emails ) {
-	wget -e use_proxy=yes -e http_proxy=$proxy -O /dev/null --post-data="email=$em" $url	
+function send_gifts () {
+	for em ( $emails ) {
+		wget -e use_proxy=yes -e http_proxy=$proxy -O /dev/null --post-data="email=$em" $url	
+	}
+	print -c "Following emails donated :-) to spamdomain: " $emails
 }
 
-print -c "Following emails donated :-) to spamdomain: " $emails
+send_gifts
