@@ -7,6 +7,6 @@ thank your very much!
 '
 
 while ( true ) {
-	cat <<< $response | netcat -l 4000 >&1 >> server_log.txt
-	print "\n"
+	cat <<< $response | netcat -l 4000 | tee -a server_log.txt
 }
+
